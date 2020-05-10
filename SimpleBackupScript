@@ -12,10 +12,10 @@ BDIR1='/var/./www/'
 BDIR2='/etc/'
 BDIR3='/home/'
 # dir to backup
-DDIR='/media/ironwolf1/backups/blackbox/'
+DDIR='/media/ironwolf1/backups/cheapbox/'
 # date files
-DATE1='/media/ironwolf1/backups/blackbox/date.txt'
-DATE2='/media/ironwolf1/backups/blackbox/date2.txt'
+DATE1='/media/ironwolf1/backups/cheapbox/date.txt'
+DATE2='/media/ironwolf1/backups/cheapbox/date2.txt'
 # excluded directories -- currently other backups
 EXCLUDES='exclude.txt'
 
@@ -64,6 +64,7 @@ rsync -avhPR --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --stats --exclude-from=${EXCLUDES
 # R : relative; preserves the whole path, except for anything higher than /./
 # --chmod : set permmisions for the new directory
 # --stats : logs stats about the xfer
+# --exclude-from : path to exclude file, which contains string search terms to exclude from backup
 # --log-file : file to store log to, can be useful for review
 # --link-dest : creates hard links for unchanged files in the current increment 
 #             : to their last change, allowing single-step restore
