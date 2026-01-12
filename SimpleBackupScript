@@ -7,20 +7,27 @@
 ##############################################
 
 # directory for backup - /./ is included for -R option
-BDIR='/media/WDBlack3TB/share/./'
+#BDIR='/srv/share/./'
+SHAREDIR="/srv/share/"
 BDIR1='/var/./www/'
 BDIR2='/etc/'
 BDIR3='/home/'
 # dir to backup
-DDIR='/media/ironwolf1/backups/cheapbox/'
+BACKUP_DIR='/media/ironwolf1/backups/'
+DDIR=$BACKUP_DIR'kragle/'
 # date files
-DATE1='/media/ironwolf1/backups/cheapbox/date.txt'
-DATE2='/media/ironwolf1/backups/cheapbox/date2.txt'
+DATE1=${DDIR}'date.txt'
+DATE2=${DDIR}'date2.txt'
 # excluded directories -- currently other backups
-EXCLUDES='exclude.txt'
+EXCLUDES='./exclude.txt'
+# make top level backup dir if it doesn't already exist
+CURRENT_DIR=`pwd`
+cd $BACKUP_DIR
+mkdir $DDIR
+cd $CURRENT_DIR
 
 # copy old date file - yes is used to confirm copy
-# touch is used in case the files don't exist yet
+# touch and mkdir is used in case the files don't exist yet
 touch $DATE1
 touch $DATE2
 yes | cp $DATE1 $DATE2
@@ -46,7 +53,7 @@ echo "" > $LOGFILE
 pkill -9 rsync
 
 # backup files
-rsync -avhPR --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --stats --exclude-from=${EXCLUDES} --log-file=$LOGFILE --link-dest=${DDIR}Backup-`cat $DATE2` $BDIR ${DDIR}Backup-`cat $DATE1`/
+rsync -avhPR --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --stats --exclude-from=${EXCLUDES} --log-file=$LOGFILE --link-dest=${DDIR}Backup-`cat $DATE2` "$SHAREDIR" ${DDIR}Backup-`cat $DATE1`/
 
 rsync -avhPR --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --stats --exclude-from=${EXCLUDES} --log-file=$LOGFILE --link-dest=${DDIR}Backup-`cat $DATE2` $BDIR1 ${DDIR}Backup-`cat $DATE1`/
 
@@ -71,3 +78,6 @@ rsync -avhPR --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r --stats --exclude-from=${EXCLUDES
 
 # copy log file into backup dir
 mv $LOGFILE ${DDIR}Backup-`cat $DATE1`
+
+# add list of installed programs with apt
+apt list --installed | awk '{split($0, a, "/"); print a[1]}' > ${DDIR}Backup-`cat $DATE1`/apt-list.txt

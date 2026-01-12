@@ -1,2 +1,7 @@
 - Backup*/
 Xbox Music/
+Movies/
+TV/
+Gundam/
+Applied Ethical Hacking*/
+Pioneering Skills*/
