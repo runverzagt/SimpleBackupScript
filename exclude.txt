@@ -5,3 +5,5 @@ TV/
 Gundam/
 Applied Ethical Hacking*/
 Pioneering Skills*/
+temp/
+tmp/
