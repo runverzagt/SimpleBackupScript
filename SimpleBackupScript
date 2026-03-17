@@ -11,7 +11,7 @@ SHAREDIR="/srv/share/"
 BDIR1='/var/./www/'
 BDIR2='/etc/'
 BDIR3='/home/'
-BDIR=('/srv/share/' '/var/./www/' '/etc/' '/home/')
+BDIR=('/srv/share/' '/var/./www/' '/etc/' '/home/' '/opt/stacks/')
 # dir to backup
 BACKUP_DIR='/media/ironwolf1/backups/'
 DDIR=$BACKUP_DIR'kragle/'
